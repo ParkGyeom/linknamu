@@ -40,3 +40,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 !.env.local.example
+
+# 크롭 전 원본 프로필 사진 (로컬 보관용)
+public/profile.original.jpg

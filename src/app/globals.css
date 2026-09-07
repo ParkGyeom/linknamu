@@ -1,25 +1,44 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f7f8f7;
-  --foreground: #171717;
+  /* 심야의 딥 네이비 — 차가운 블루 계열 팔레트 */
+  --background: #0a0f1a;
+  --foreground: #e7edf6;
+  --muted: #8695a8;
+  --accent: #7dd3fc;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+
+  --font-sans:
+    "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
+    system-ui, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+
+  /* 어두운 배경에선 그림자가 거의 안 보이므로, 위쪽 1px 하이라이트로
+     유리 모서리를 만들고 그림자는 깊이만 담당하게 나눴습니다. */
+  --shadow-card:
+    inset 0 1px 0 rgb(255 255 255 / 0.08), 0 10px 30px -16px rgb(0 0 0 / 0.9);
+  --shadow-card-hover:
+    inset 0 1px 0 rgb(255 255 255 / 0.14), 0 16px 36px -16px rgb(0 0 0 / 0.95);
+  --shadow-avatar: 0 22px 44px -18px rgb(0 0 0 / 0.95);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0b0d0c;
-    --foreground: #ededed;
-  }
+/* 오버스크롤 시 흰 여백이 보이지 않도록 그라데이션 끝 색을 깔아 둡니다. */
+html {
+  background-color: #080c14;
 }
 
 body {
-  background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans), system-ui, sans-serif;
+  font-family: var(--font-sans);
+  /* 은은한 냉색 번짐을 두 군데 깔아야 backdrop-blur가 실제로 일할 거리가 생깁니다. */
+  background-image:
+    radial-gradient(60% 42% at 50% -5%, rgb(70 110 170 / 0.34) 0%, transparent 72%),
+    radial-gradient(46% 34% at 88% 30%, rgb(45 125 140 / 0.16) 0%, transparent 72%),
+    radial-gradient(52% 40% at 6% 72%, rgb(70 82 150 / 0.16) 0%, transparent 72%),
+    linear-gradient(180deg, #0d1421 0%, #0a0f1a 55%, #080c14 100%);
 }

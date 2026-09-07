@@ -15,26 +15,33 @@ function initialsOf(name: string): string {
 export default function ProfileHeader({ profile }: { profile: Profile }) {
   return (
     <header className="flex flex-col items-center text-center">
-      {profile.avatarUrl ? (
-        <Image
-          src={profile.avatarUrl}
-          alt={`${profile.name} 프로필 사진`}
-          width={160}
-          height={160}
-          className="size-40 rounded-full object-cover ring-2 ring-black/5 dark:ring-white/10"
-          priority
-        />
-      ) : (
+      <div className="relative">
+        {/* 사진 뒤에 깔리는 차가운 번짐 — 살짝 떠 있는 느낌만 줍니다. */}
         <div
           aria-hidden
-          className="flex size-40 items-center justify-center rounded-full bg-gradient-to-br from-emerald-400 to-teal-600 text-4xl font-semibold text-white ring-2 ring-black/5 dark:ring-white/10"
-        >
-          {initialsOf(profile.name)}
-        </div>
-      )}
+          className="absolute -inset-4 rounded-full bg-[radial-gradient(closest-side,rgb(125_211_252/0.28),transparent)] blur-xl"
+        />
+        {profile.avatarUrl ? (
+          <Image
+            src={profile.avatarUrl}
+            alt={`${profile.name} 프로필 사진`}
+            width={144}
+            height={144}
+            className="relative size-36 rounded-full object-cover shadow-avatar ring-1 ring-white/15"
+            priority
+          />
+        ) : (
+          <div
+            aria-hidden
+            className="relative flex size-36 items-center justify-center rounded-full bg-gradient-to-br from-sky-400 to-indigo-500 text-4xl font-semibold text-white shadow-avatar ring-1 ring-white/15"
+          >
+            {initialsOf(profile.name)}
+          </div>
+        )}
+      </div>
 
-      <h1 className="mt-6 text-xl font-bold tracking-tight">{profile.name}</h1>
-      <p className="mt-1.5 text-sm text-black/60 dark:text-white/60">
+      <h1 className="mt-7 text-2xl font-bold tracking-tight">{profile.name}</h1>
+      <p className="mt-2.5 text-[13px] leading-relaxed text-muted">
         {profile.bio}
       </p>
     </header>

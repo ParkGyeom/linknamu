@@ -20,17 +20,19 @@ export type LinkItem = {
 };
 
 export const profile: Profile = {
-  name: "김클로",
-  bio: "세계 최강 바이브 코더",
-  // TODO: 실제 프로필 사진으로 교체
-  avatarUrl: "/avatar-placeholder.png",
+  name: "박 겸",
+  bio: "풀스택 개발자 | 요즘에는 AI 개발에 관심이 많아요",
+  avatarUrl: "/profile.jpg",
 };
 
-// TODO: 실제 링크 주소로 교체
 export const links: LinkItem[] = [
-  { id: "github", label: "GitHub", url: "https://github.com" },
-  { id: "linkedin", label: "LinkedIn", url: "https://linkedin.com" },
-  { id: "blog", label: "Blog", url: "https://blog.example.com" },
+  { id: "github", label: "🐙 깃허브", url: "https://github.com/ParkGyeom" },
+  {
+    id: "instagram",
+    label: "📸 인스타",
+    url: "https://www.instagram.com/dhdldx/",
+  },
+  { id: "email", label: "📮 이메일", url: "mailto:pg08100830@gmail.com" },
 ];
 
 export function findLink(id: string): LinkItem | undefined {

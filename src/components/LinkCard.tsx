@@ -33,13 +33,13 @@ export default function LinkCard({ link, clickCount }: Props) {
       onClick={handleClick}
       target={isExternal ? "_blank" : undefined}
       rel={isExternal ? "noopener noreferrer" : undefined}
-      className="relative flex items-center justify-center rounded-2xl border border-black/10 bg-white px-12 py-4 text-center font-medium shadow-sm transition hover:-translate-y-0.5 hover:border-emerald-500/40 hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500 active:translate-y-0 dark:border-white/10 dark:bg-white/5 dark:hover:border-emerald-400/40"
+      className="relative flex items-center justify-center rounded-2xl border border-white/10 bg-white/[0.06] px-14 py-4.5 text-center text-[15px] font-semibold tracking-tight shadow-card backdrop-blur-md transition duration-200 ease-out hover:-translate-y-0.5 hover:border-white/20 hover:bg-white/[0.1] hover:shadow-card-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent active:translate-y-0"
     >
       <span className="truncate">{link.label}</span>
 
       {count !== undefined && (
         <span
-          className="absolute right-4 text-xs tabular-nums text-black/40 dark:text-white/40"
+          className="absolute right-5 text-[11px] font-medium tabular-nums text-muted/70"
           title="클릭 수"
         >
           {count.toLocaleString("ko-KR")}회

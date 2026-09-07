@@ -10,7 +10,7 @@ type Props = {
 
 export default function LinkList({ links, clickCounts, showClickCounts }: Props) {
   return (
-    <nav aria-label="링크 목록" className="flex flex-col gap-4">
+    <nav aria-label="링크 목록" className="flex flex-col gap-4 sm:gap-[18px]">
       {links.map((link) => (
         <LinkCard
           key={link.id}
