@@ -1,13 +1,12 @@
 import LinkList from "@/components/LinkList";
 import ProfileHeader from "@/components/ProfileHeader";
-import { getClickCounts } from "@/lib/clicks";
 import { links, profile } from "@/lib/profile";
 
-// 클릭 수는 매 요청마다 최신 값을 보여 줍니다.
+// 클릭 수는 브라우저가 마운트 후 따로 가져오므로 이 페이지는 DB 를 기다리지 않습니다.
+// 다만 MONGODB_URI 유무는 빌드 시점이 아니라 요청 시점에 확인해야 합니다.
 export const dynamic = "force-dynamic";
 
-export default async function Home() {
-  const clickCounts = await getClickCounts();
+export default function Home() {
   const showClickCounts = Boolean(process.env.MONGODB_URI);
 
   return (
@@ -17,11 +16,7 @@ export default async function Home() {
 
       {/* 하단: 링크 카드 세로 목록 */}
       <div className="mt-14">
-        <LinkList
-          links={links}
-          clickCounts={clickCounts}
-          showClickCounts={showClickCounts}
-        />
+        <LinkList links={links} showClickCounts={showClickCounts} />
       </div>
 
       <footer className="mt-auto pt-20 text-center text-[11px] text-muted/70">
