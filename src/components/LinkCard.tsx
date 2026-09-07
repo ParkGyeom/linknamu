@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import type { LinkItem } from "@/lib/profile";
 
@@ -12,7 +12,20 @@ type Props = {
 
 export default function LinkCard({ link, clickCount }: Props) {
   const [count, setCount] = useState(clickCount);
-  const isExternal = /^https?:/i.test(link.url);
+
+  // 메일 항목은 주소를 서버 HTML에 남기지 않으려고 마운트 후에 조립합니다.
+  // 그 전까지 href가 없어 링크로 동작하지 않지만, 하이드레이션 직후 복구됩니다.
+  const [href, setHref] = useState(link.url);
+  const mailUser = link.mail?.user;
+  const mailDomain = link.mail?.domain;
+
+  useEffect(() => {
+    if (mailUser && mailDomain) {
+      setHref(`mailto:${mailUser}@${mailDomain}`);
+    }
+  }, [mailUser, mailDomain]);
+
+  const isExternal = href !== undefined && /^https?:/i.test(href);
 
   // 기본 이동은 그대로 두고, 집계 요청만 별도로 띄워 보냅니다.
   // keepalive 덕분에 같은 탭에서 페이지를 떠나도 요청이 유지됩니다.
@@ -29,7 +42,7 @@ export default function LinkCard({ link, clickCount }: Props) {
 
   return (
     <a
-      href={link.url}
+      href={href}
       onClick={handleClick}
       target={isExternal ? "_blank" : undefined}
       rel={isExternal ? "noopener noreferrer" : undefined}

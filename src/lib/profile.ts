@@ -12,12 +12,21 @@ export type Profile = {
   avatarUrl?: string;
 };
 
+/**
+ * 메일 주소를 아이디와 도메인으로 쪼개 둡니다. 서버가 내려보내는 HTML에
+ * "a@b" 형태가 한 번도 등장하지 않아, 정규식으로 훑는 스팸 수집기에 걸리지
+ * 않습니다. 실제 mailto: 주소는 브라우저에서 조립합니다.
+ */
+export type MailAddress = { user: string; domain: string };
+
 export type LinkItem = {
   /** 클릭 수 집계 키로 쓰이므로 한 번 정하면 바꾸지 않습니다. */
   id: string;
   label: string;
-  url: string;
-};
+} & (
+  | { url: string; mail?: never }
+  | { url?: never; mail: MailAddress }
+);
 
 export const profile: Profile = {
   name: "박 겸",
@@ -32,7 +41,11 @@ export const links: LinkItem[] = [
     label: "📸 인스타",
     url: "https://www.instagram.com/dhdldx/",
   },
-  { id: "email", label: "📮 이메일", url: "mailto:pg08100830@gmail.com" },
+  {
+    id: "email",
+    label: "📮 이메일",
+    mail: { user: "pg08100830", domain: "gmail.com" },
+  },
 ];
 
 export function findLink(id: string): LinkItem | undefined {
